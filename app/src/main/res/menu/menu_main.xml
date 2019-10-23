@@ -1,0 +1,33 @@
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/mainMenuPost"
+        android:icon="?android:attr/actionModeShareDrawable"
+        android:title="Post"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/mainMenuManageAccount"
+        android:title="Post"
+        />
+
+    <item
+        android:id="@+id/mainMenuDelete"
+        android:title="@string/delete_text"/>
+
+    <item
+        android:id="@+id/mainMenuHelp"
+        android:title="@string/help_text"
+        />
+
+    <item
+        android:id="@+id/mainMenuTest"
+        android:title="Test"
+        />
+
+    <item
+        android:id="@+id/idWriteTime"
+        android:title="Write Time"
+        />
+</menu>

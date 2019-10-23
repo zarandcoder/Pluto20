@@ -1,9 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<!--###############################################################################################
+    Linear Layout können verschieden ausgerichtet sein
+    match parrent -> mach so groß wie der Bildschirm
+    breite/höhe einstellen "match parrent" und "wrap content" mach so klein wie es geht
+
+    Pattern:
+    1) Legen sie die Funktion der activity fest
+    2) Layout:
+        a) UI elemente erzeugen
+        b) UI elemente stylen
+        c) UI elemente aussagekräftig benennen
+    3)
+################################################################################################-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignInActivity">
+    android:layout_marginBottom="15dp"
+    android:layout_marginLeft="30dp"
+    android:layout_marginRight="30dp"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <EditText
+        android:id="@+id/signInEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:ems="10"
+        android:hint="E-Mail (will not be public)"
+        android:inputType="textEmailAddress"
+        android:text="vadim@zaripov.website"/>
+
+    <EditText
+        android:id="@+id/signInPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:text="1qayxsw2"/>
+
+    <Button
+        android:id="@+id/signInButtonSignIn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:text="Sign In" />
+
+    <Button
+        android:id="@+id/signInButtonResetPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:onClick="doResetPassword"
+        android:text="Reset Password" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:ems="0"
+        android:text="Enter your e-mail to and click receive a password reset link"
+        android:textSize="15dp" />
+
+    <Space
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/signInButtonCreateAccount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:onClick="doCreateAccount"
+        android:text="Create New Account" />
+
+</LinearLayout>
