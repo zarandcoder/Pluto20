@@ -11,7 +11,11 @@
         a) UI elemente erzeugen
         b) UI elemente stylen
         c) UI elemente aussagekräftig benennen
-    3)
+        d) Listener registrieren
+    3) Login
+        a) Variale deklarieren
+        b) Variable initialisieren
+        c) Listener implementieren
 ################################################################################################-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -48,7 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="11dp"
-        android:text="Sign In" />
+        android:text="Sign In"/>
 
     <Button
         android:id="@+id/signInButtonResetPassword"
@@ -64,7 +68,7 @@
         android:layout_marginTop="2dp"
         android:ems="0"
         android:text="Enter your e-mail to and click receive a password reset link"
-        android:textSize="15dp" />
+        android:textSize="15dp"/>
 
     <Space
         android:layout_width="1dp"

@@ -1,9 +1,16 @@
 <resources>
+    <!-- Start screen -->
     <string name="app_name">Pluto20 App</string>
     <string name="greeting_text">Hello Vadim</string>
-    <string name="help_text">Help</string>
+
+    <!-- Button name while start screen-->
     <string name="start_text">Start</string>
-    <string name="delete_text">Delete acc</string>
-    <string name="test_text">Test</string>
+
+
+    <!-- Menu option names-->
     <string name="post_text">Post</string>
+    <string name="signin_text">Sign in to account</string>
+    <string name="createacc_text">Create account</string>
+    <string name="manageacc_text">Manage account</string>
+    <string name="deleteacc_text">Delete account</string>
 </resources>

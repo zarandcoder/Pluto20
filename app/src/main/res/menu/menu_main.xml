@@ -1,33 +1,24 @@
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/mainMenuPost"
         android:icon="?android:attr/actionModeShareDrawable"
         android:title="Post"
-        app:showAsAction="always" />
+        app:showAsAction="always"
+        tools:ignore="NewApi"/>
 
     <item
         android:id="@+id/mainMenuManageAccount"
-        android:title="Post"
-        />
-
+        android:title="@string/manageacc_text"/>
+    <item
+        android:id="@+id/mainMenuCreateAccount"
+        android:title="@string/createacc_text"/>
     <item
         android:id="@+id/mainMenuDelete"
-        android:title="@string/delete_text"/>
-
+        android:title="@string/deleteacc_text"/>
     <item
-        android:id="@+id/mainMenuHelp"
-        android:title="@string/help_text"
-        />
-
-    <item
-        android:id="@+id/mainMenuTest"
-        android:title="Test"
-        />
-
-    <item
-        android:id="@+id/idWriteTime"
-        android:title="Write Time"
-        />
+        android:id="@+id/mainMenuSignIn"
+        android:title="@string/signin_text"/>
 </menu>
