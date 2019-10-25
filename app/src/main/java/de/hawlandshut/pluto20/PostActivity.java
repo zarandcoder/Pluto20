@@ -10,9 +10,9 @@ import android.widget.EditText;
 public class PostActivity extends AppCompatActivity implements View.OnClickListener {
     private static String TAG = "xx PostActivity";
 
-    EditText mPostTitle;
-    EditText mPostBody;
-    Button mButtonSend;
+    private EditText mPostTitle;
+    private EditText mPostBody;
+    private Button mButtonSend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

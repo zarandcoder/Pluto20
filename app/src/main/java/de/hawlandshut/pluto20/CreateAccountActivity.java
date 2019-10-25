@@ -11,10 +11,10 @@ import android.widget.EditText;
 public class CreateAccountActivity extends AppCompatActivity implements View.OnClickListener {
     private static String TAG = "xx CreateAcc Activity";
 
-    EditText mEditTextMail;
-    EditText mEditTextPassword1;
-    EditText mEditTextPassword2;
-    Button mButtonCreateAccount;
+    private EditText mEditTextMail;
+    private EditText mEditTextPassword1;
+    private EditText mEditTextPassword2;
+    private Button mButtonCreateAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
