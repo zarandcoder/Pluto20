@@ -1,3 +1,44 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/createTestuser"
+        android:title="Create Testuser" />
+
+    <item
+    android:id="@+id/deleteTestuser"
+    android:title="Delete Testuser" />
+
+    <item
+    android:id="@+id/testAuthStatus"
+    android:title="Test Auth Status" />
+
+    <item
+    android:id="@+id/signInTestuser"
+    android:title="Sign in Testuser" />
+
+    <item
+    android:id="@+id/signOutTestuser"
+    android:title="Sign Out Testuser" />
+
+    <item
+    android:id="@+id/setDisplayName"
+    android:title="Set Display Name" />
+
+    <item
+    android:id="@+id/sendActivationMail"
+    android:title="Send activation mail." />
+
+    <item
+    android:id="@+id/sendResetPasswordMail"
+    android:title="Send reset password mail." />
+
+    <item
+    android:id="@+id/idSignInWithGoogle"
+    android:title="Sign In with Google" />
+
+</menu>
+
+<!--
 <menu xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
@@ -22,3 +63,4 @@
         android:id="@+id/mainMenuSignIn"
         android:title="@string/signin_text"/>
 </menu>
+-->

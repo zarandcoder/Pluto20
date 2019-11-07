@@ -23,12 +23,14 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
         mButtonSend = (Button) findViewById(R.id.postButtonPost);
     }
 
+    //TODO implement method
+    public void doPost() {}
     @Override
     public void onClick(View v) {
         int i = v.getId();
         switch (i) {
             case R.id.postButtonPost:
-                //TODO: doPost();
+                doPost();
                 return;
             default:
                 return;
