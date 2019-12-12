@@ -3,8 +3,10 @@ package de.hawlandshut.pluto20;
 import org.jetbrains.annotations.NotNull;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DownloadManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,8 +25,17 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ServerValue;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import de.hawlandshut.pluto20.model.Post;
 import de.hawlandshut.pluto20.test.TestData;
@@ -38,11 +49,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     //Only for testing purposes
-    private static final String TEST_USERNAME = "Hans Huber";
     private static final String TEST_MAIL = "hans.huber@gmail.com";
     private static final String TEST_PASSWORD ="123456";
-    private static final String TEST_NEW_DISPLAY_NAME ="Sepp Maier";
 
+    //Connection to Databse
+    ChildEventListener mCEL;
+    Query mQuerry;
 
     //Similar like main() first method that starts
     @Override
@@ -59,8 +71,8 @@ public class MainActivity extends AppCompatActivity {
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
 
-                TextView text1 = (TextView) view.findViewById(android.R.id.text1);
-                TextView text2 = (TextView) view.findViewById(android.R.id.text2);
+                TextView text1 = view.findViewById(android.R.id.text1);
+                TextView text2 = view.findViewById(android.R.id.text2);
 
                 Post post = getItem(getCount() - position - 1);
 
@@ -70,7 +82,44 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
+        //Adapter der listView zuordnen
         mListView.setAdapter(mAdapter);
+
+        //Query und CEL initialisieren
+        mCEL = getChildEventListener();
+        mQuerry = FirebaseDatabase.getInstance().getReference().child("posts/");
+        mQuerry.addChildEventListener(mCEL);
+    }
+
+
+    private ChildEventListener getChildEventListener() {
+        ChildEventListener cel = new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Log.d(TAG, "Child added : " + dataSnapshot.getKey());
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                //Log.d(TAG, "Child changed : " + dataSnapshot.getKey());
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                Log.d(TAG, "Child deleted : " + dataSnapshot.getKey());
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Log.d(TAG, "Child moved : " + dataSnapshot.getKey());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d(TAG, "Listener cancelled.");
+            }
+        };
+        return cel;
     }
 
     //Menu programming - inflate
@@ -87,113 +136,54 @@ public class MainActivity extends AppCompatActivity {
         Intent intent;
 
         switch (item.getItemId()) {
-            case R.id.createTestuser:
-                doCreateUser(TEST_MAIL, TEST_PASSWORD);
-                return true;
-            case R.id.deleteTestuser:
-                doDeleteTestUser();
-                return true;
-            case R.id.testAuthStatus:
-                doTestAuth();
+
+            case R.id.menu_manage_account:
+                //Goto ManageAccount
+                intent = new Intent(getApplication(), ManageAccountActivity.class);
+                startActivity(intent);
                 return true;
 
-            case R.id.signInTestuser:
-                doSignIn(TEST_MAIL, TEST_PASSWORD);
+            case R.id.menu_post:
+                intent = new Intent(getApplication(), PostActivity.class);
+                startActivity(intent);
                 return true;
 
-            case R.id.signOutTestuser:
-                doTestSignOut();
+            case R.id.menu_write:
+                //TODO Implement Testwriting
+                Map<String, Object> postMap = new HashMap<>();
+                postMap.put("uid", "das ist die UID");
+                postMap.put("author", "my Author");
+                postMap.put("title", "my Title");
+                postMap.put("body", "my Body");
+                postMap.put("timestamp", ServerValue.TIMESTAMP);
+
+                //Schreiben
+                DatabaseReference mDataBase;
+                try {
+                    mDataBase = FirebaseDatabase.getInstance().getReference().child("posts/");
+                    mDataBase.push().setValue(postMap);
+                } catch (Exception e) {
+                    Log.d(TAG, "Fehler beim Schreiben :" + e.getLocalizedMessage());
+                }
+
                 return true;
 
-            case R.id.setDisplayName:
-                doSetDisplayName(TEST_NEW_DISPLAY_NAME);
-                return true;
-
-            case R.id.sendResetPasswordMail:
-                doSendResetPasswordMail(TEST_MAIL);
-                return true;
-
-            case R.id.sendActivationMail:
-                doSendActivationMail();
-                return true;
-
-            case R.id.idSignInWithGoogle:
-                doSignInWithGoogle();
-                return true;
             default:
-                return super.onOptionsItemSelected(item);
-
+                return true;
         }
     }
 
-    //TODO Implement further behaviour
-    public void doCreateUser(String x, String y) {
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(TEST_MAIL, TEST_PASSWORD)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()) {
-                            Toast.makeText(getApplicationContext(), "User created", Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(getApplicationContext(), "User creation failed", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-    }
-    public void doDeleteTestUser(){}
-    public void doTestAuth(){
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String msg = (user == null) ? "Not authentificated" : ("Authentification successful" + user.getEmail());
-    }
-    public void doSignIn(String x, String y){}
-    public void doTestSignOut(){}
-    public void doSetDisplayName(String x){}
-    public void doSendResetPasswordMail(String x){}
-    public void doSendActivationMail(){}
-    public void doSignInWithGoogle(){}
-
-    /*
-        Methods from the Application Lifecycle
-        Alle Methoden werden hintereinander ausgeführt
-    */
-/*
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.d(TAG, "onResume() called");
-
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.d(TAG, "onPause() called");
-
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.d(TAG, "onStop() called");
-
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "onDestroy() called");
-
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        Log.d(TAG, "onRestart() called");
-    }
-*/
     @Override
     protected void onStart() {
         super.onStart();
-    }
+        Log.d(TAG, "onStart() called");
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user == null) {
+            //TODO Reset App
+
+            Intent intent = new Intent(getApplication(), SignInActivity.class);
+            startActivity(intent);
+        }
+    }
 }

@@ -48,14 +48,14 @@
         android:text="1qayxsw2"/>
 
     <Button
-        android:id="@+id/signInButtonSignIn"
+        android:id="@+id/sign_in_button_sign_in"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="11dp"
         android:text="Sign In"/>
 
     <Button
-        android:id="@+id/signInButtonResetPassword"
+        android:id="@+id/sign_in_button_reset_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="11dp"
@@ -76,7 +76,7 @@
         android:layout_weight="1" />
 
     <Button
-        android:id="@+id/signInButtonCreateAccount"
+        android:id="@+id/sign_in_button_create_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

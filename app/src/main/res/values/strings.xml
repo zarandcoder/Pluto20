@@ -13,4 +13,6 @@
     <string name="createacc_text">Create account</string>
     <string name="manageacc_text">Manage account</string>
     <string name="deleteacc_text">Delete account</string>
+    <string name="writing_text">Test Writing to Database</string>
+
 </resources>
