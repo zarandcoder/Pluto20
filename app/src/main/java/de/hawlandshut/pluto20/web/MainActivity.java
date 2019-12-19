@@ -1,4 +1,4 @@
-package de.hawlandshut.pluto20;
+package de.hawlandshut.pluto20.web;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.DownloadManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,27 +17,20 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+import com.crashlytics.android.Crashlytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ServerValue;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
+import de.hawlandshut.pluto20.R;
 import de.hawlandshut.pluto20.model.Post;
-import de.hawlandshut.pluto20.test.TestData;
 
 public class MainActivity extends AppCompatActivity {
     private static String TAG = "xx Main Activity";
@@ -53,8 +45,9 @@ public class MainActivity extends AppCompatActivity {
     private static final String TEST_PASSWORD ="123456";
 
     //Connection to Databse
+    boolean mListenerIsRunning;
     ChildEventListener mCEL;
-    Query mQuerry;
+    Query mQuery;
 
     //Similar like main() first method that starts
     @Override
@@ -64,20 +57,23 @@ public class MainActivity extends AppCompatActivity {
 
         mListView = findViewById(R.id.mainListViewMessages);
 
-        mPostList = (ArrayList<Post>) TestData.createTestData();
+        //Initialize Post List
+        mPostList = new ArrayList<Post>();
+
         mAdapter = new ArrayAdapter<Post>(this,
                 android.R.layout.simple_list_item_2, android.R.id.text1, mPostList) {
 
+            @NotNull
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
 
                 TextView text1 = view.findViewById(android.R.id.text1);
                 TextView text2 = view.findViewById(android.R.id.text2);
 
-                Post post = getItem(getCount() - position - 1);
+                Post post = getItem(getCount() - 1 - position);
 
-                text1.setText(post.getAuthor());
-                text2.setText(post.getTitle() + "\n" + post.getBody());
+                text1.setText(post.getAuthor() + " (" + post.getTitle() + " )");
+                text2.setText(post.getBody());
                 return view;
             }
         };
@@ -85,38 +81,56 @@ public class MainActivity extends AppCompatActivity {
         //Adapter der listView zuordnen
         mListView.setAdapter(mAdapter);
 
-        //Query und CEL initialisieren
+        //Initialize Query and CEL
         mCEL = getChildEventListener();
-        mQuerry = FirebaseDatabase.getInstance().getReference().child("posts/");
-        mQuerry.addChildEventListener(mCEL);
+        mQuery = FirebaseDatabase.getInstance().getReference().child("posts/").limitToLast(5);
+
+        mListenerIsRunning = false;
+
     }
 
 
     private ChildEventListener getChildEventListener() {
+
         ChildEventListener cel = new ChildEventListener() {
+
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Log.d(TAG, "Child added : " + dataSnapshot.getKey());
+                //Process the received post
+                Post p = Post.fromSnapShot(dataSnapshot);
+                mPostList.add(p);
+                mAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                //Log.d(TAG, "Child changed : " + dataSnapshot.getKey());
+                Log.d(TAG, "Child changed : " + dataSnapshot.getKey());
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
                 Log.d(TAG, "Child deleted : " + dataSnapshot.getKey());
+                String key = dataSnapshot.getKey();
+                for(int i = 0; i < mPostList.size(); i++) {
+                    if(key.equals(mPostList.get(i).getFirebaseKey())) {
+                        mPostList.remove(i);
+                        break;
+                    }
+                }
+                mAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Log.d(TAG, "Child moved : " + dataSnapshot.getKey());
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.d(TAG, "Listener cancelled.");
+                mListenerIsRunning = false;
             }
         };
         return cel;
@@ -137,6 +151,9 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
 
+            case R.id.menu_simulate_crash:
+                Crashlytics.getInstance().crash();
+
             case R.id.menu_manage_account:
                 //Goto ManageAccount
                 intent = new Intent(getApplication(), ManageAccountActivity.class);
@@ -146,26 +163,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_post:
                 intent = new Intent(getApplication(), PostActivity.class);
                 startActivity(intent);
-                return true;
-
-            case R.id.menu_write:
-                //TODO Implement Testwriting
-                Map<String, Object> postMap = new HashMap<>();
-                postMap.put("uid", "das ist die UID");
-                postMap.put("author", "my Author");
-                postMap.put("title", "my Title");
-                postMap.put("body", "my Body");
-                postMap.put("timestamp", ServerValue.TIMESTAMP);
-
-                //Schreiben
-                DatabaseReference mDataBase;
-                try {
-                    mDataBase = FirebaseDatabase.getInstance().getReference().child("posts/");
-                    mDataBase.push().setValue(postMap);
-                } catch (Exception e) {
-                    Log.d(TAG, "Fehler beim Schreiben :" + e.getLocalizedMessage());
-                }
-
                 return true;
 
             default:
@@ -180,10 +177,35 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user == null) {
-            //TODO Reset App
+            resetApp();
+
+            mPostList.clear();
+            mAdapter.notifyDataSetChanged();
 
             Intent intent = new Intent(getApplication(), SignInActivity.class);
             startActivity(intent);
+
+        } else {
+            //Start listener if user available
+            if (!mListenerIsRunning) {
+
+                mPostList.clear();
+                mAdapter.notifyDataSetChanged();
+
+                mQuery.addChildEventListener(mCEL);
+                mListenerIsRunning = true;
+            }
         }
+    }
+
+    void resetApp(){
+
+        if (mListenerIsRunning){
+            mQuery.removeEventListener( mCEL );
+            mListenerIsRunning = false;
+        }
+
+        mPostList.clear();
+        mAdapter.notifyDataSetChanged();
     }
 }

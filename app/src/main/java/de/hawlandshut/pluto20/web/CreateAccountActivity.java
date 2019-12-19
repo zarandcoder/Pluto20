@@ -1,4 +1,4 @@
-package de.hawlandshut.pluto20;
+package de.hawlandshut.pluto20.web;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +14,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import de.hawlandshut.pluto20.R;
 
 public class CreateAccountActivity extends AppCompatActivity implements View.OnClickListener {
     private static String TAG = "xx Create Acc Activity";

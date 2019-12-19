@@ -1,4 +1,4 @@
-package de.hawlandshut.pluto20;
+package de.hawlandshut.pluto20.web;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +15,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import de.hawlandshut.pluto20.R;
 
 public class ManageAccountActivity extends AppCompatActivity implements View.OnClickListener {
 

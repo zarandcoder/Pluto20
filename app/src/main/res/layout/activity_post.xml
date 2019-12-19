@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/postButtonPost"
+        android:id="@+id/post_button_send"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"
@@ -14,7 +14,7 @@
         android:text="Post" />
 
     <EditText
-        android:id="@+id/postTitle"
+        android:id="@+id/post_edittext_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"
@@ -25,7 +25,7 @@
 
 
     <EditText
-        android:id="@+id/postText"
+        android:id="@+id/post_edittext_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
