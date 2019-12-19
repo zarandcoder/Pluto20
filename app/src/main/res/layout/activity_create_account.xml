@@ -1,44 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingTop="30dp"
     android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    tools:context="de.hawlandshut.pluto20.CreateAccountActivity">
+
 
     <EditText
-        android:id="@+id/createAccountEmail"
+        android:id="@+id/create_account_edittext_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="vadim@zaripov.website"
         android:ems="10"
-        android:hint="E-Mail (will not be public)"
         android:inputType="textEmailAddress" />
 
     <EditText
-        android:id="@+id/createAccountPassword1"
+        android:id="@+id/create_account_edittext_password1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="1qayxsw2"
         android:ems="10"
-        android:hint="Password"
         android:inputType="textPassword" />
 
     <EditText
-        android:id="@+id/createAccountPassword2"
+        android:id="@+id/create_account_edittext_password2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Repeat Password"
         android:inputType="textPassword" />
 
     <Button
-        android:id="@+id/createAccountButtonCreateAccount"
+        android:id="@+id/create_account_button_create"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="Create Account"
-        />
+        android:text="Create Account" />
 </LinearLayout>

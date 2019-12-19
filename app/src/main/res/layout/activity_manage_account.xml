@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<tools:LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginLeft="30dp"
     android:layout_marginRight="30dp"
-    android:layout_marginBottom="15dp">
+    android:layout_marginBottom="15dp"
+    tools:context=".ManageAccountActivity">
     ​
     <TextView
         android:id="@+id/manageAccountEmail"
@@ -60,7 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:text="@string/deleteacc_text"/>
+        android:text="For security reasons, pls enter password to delete your account. Deletion cannot be undone."/>
     ​
     <EditText
         android:id="@+id/manageAccountPassword"
@@ -78,4 +82,4 @@
         android:background="@android:color/holo_red_dark"
         android:text="Delete Account"
         />
-</LinearLayout>
+</tools:LinearLayout>

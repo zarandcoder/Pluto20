@@ -11,10 +11,6 @@
 
 
     <item
-        android:id="@+id/menu_write"
-        android:title="@string/writing_text" />
-
-    <item
         android:id="@+id/menu_simulate_crash"
         android:title="@string/simulate_crash" />
 

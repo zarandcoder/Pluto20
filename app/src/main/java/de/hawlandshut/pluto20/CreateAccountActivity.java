@@ -1,4 +1,4 @@
-package de.hawlandshut.pluto20.web;
+package de.hawlandshut.pluto20;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,10 +30,10 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
 
-        mEditTextMail = (EditText) findViewById(R.id.createAccountEmail);
-        mEditTextPassword1 = (EditText) findViewById(R.id.createAccountPassword1);
-        mEditTextPassword2 = (EditText) findViewById(R.id.createAccountPassword2);
-        mButtonCreateAccount = (Button) findViewById(R.id.createAccountButtonCreateAccount);
+        mEditTextMail = (EditText) findViewById(R.id.create_account_edittext_email);
+        mEditTextPassword1 = (EditText) findViewById(R.id.create_account_edittext_password1);
+        mEditTextPassword2 = (EditText) findViewById(R.id.create_account_edittext_password2);
+        mButtonCreateAccount = (Button) findViewById(R.id.create_account_button_create);
 
         //Register listener
         mButtonCreateAccount.setOnClickListener(this);
@@ -49,11 +49,9 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
     public void onClick(View v) {
         int i = v.getId();
         switch(i) {
-            case R.id.createAccountButtonCreateAccount:
+            case R.id.create_account_button_create:
                 Log.d(TAG, "Create Account Button pressed");
                 doCreateAccount();
-                return;
-            default:
                 return;
         }
     }
@@ -61,7 +59,7 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
 
     private void doCreateAccount() {
 
-        String  email = mEditTextMail.getText().toString();
+        String email = mEditTextMail.getText().toString();
         String password1 = mEditTextPassword1.getText().toString();
         String password2 = mEditTextPassword2.getText().toString();
 

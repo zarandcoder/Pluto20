@@ -1,4 +1,4 @@
-package de.hawlandshut.pluto20.web;
+package de.hawlandshut.pluto20;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -67,8 +67,6 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
 
                 mDatabase.push().setValue(postMap);
                 finish();
-
-                return;
         }
     }
 }
