@@ -55,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
         mListView = findViewById(R.id.mainListViewMessages);
 
         //Initialize Post List
