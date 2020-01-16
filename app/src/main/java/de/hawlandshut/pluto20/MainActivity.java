@@ -1,4 +1,4 @@
-package de.hawlandshut.pluto20.web;
+package de.hawlandshut.pluto20;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -29,7 +29,6 @@ import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
 
-import de.hawlandshut.pluto20.R;
 import de.hawlandshut.pluto20.model.Post;
 
 public class MainActivity extends AppCompatActivity {
@@ -44,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TEST_MAIL = "hans.huber@gmail.com";
     private static final String TEST_PASSWORD ="123456";
 
-    //Connection to Databse
+    //Connection to Database
     boolean mListenerIsRunning;
     ChildEventListener mCEL;
     Query mQuery;

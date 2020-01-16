@@ -1,4 +1,4 @@
-package de.hawlandshut.pluto20.web;
+package de.hawlandshut.pluto20;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,23 +20,24 @@ import de.hawlandshut.pluto20.R;
 
 public class ManageAccountActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String TAG = "xx Manage Account acty";
-
-    private TextView mEmail;
-    private TextView mAccountState;
-    private TextView mTechnicalId;
-
-    private Button mButtonSignOut;
-    private Button mButtonDeleteAccount;
-    private Button mButtonSendActivationEmail;
-
+    private static final String TAG = "xx ManageAccount acty";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //UI Elements
+        TextView mEmail;
+        TextView mAccountState;
+        TextView mTechnicalId;
+
+        Button mButtonSignOut;
+        Button mButtonDeleteAccount;
+        Button mButtonSendActivationEmail;
+
         super.onCreate(savedInstanceState);
         TextView textView = (TextView) findViewById(R.id.manageAccountTechnicalId);
         setContentView(R.layout.activity_manage_account);
 
+        //UI Elemente-Initialiseren
         mEmail = findViewById(R.id.manageAccountEmail);
         mAccountState = findViewById(R.id.manageAccountVerificationState);
         mTechnicalId = findViewById(R.id.manageAccountTechnicalId);
@@ -46,12 +47,13 @@ public class ManageAccountActivity extends AppCompatActivity implements View.OnC
         mButtonDeleteAccount = findViewById(R.id.manageAccountButtonDeleteAccount);
         mButtonSendActivationEmail = findViewById(R.id.manageAccountButtonSendActivationMail);
 
-
+        //Listener registrieren
         mButtonSignOut.setOnClickListener(this);
         mButtonDeleteAccount.setOnClickListener(this);
         mButtonSendActivationEmail.setOnClickListener(this);
 
-
+        // Nur zur Sicherheit; die aufrufende Activity muss garantieren,
+        // dass es einen user gibt.
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user == null) {
             finish();

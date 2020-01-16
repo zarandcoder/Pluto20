@@ -1,4 +1,4 @@
-package de.hawlandshut.pluto20.model;
+package de.hawlandshut.pluto20;
 
 import android.util.Log;
 

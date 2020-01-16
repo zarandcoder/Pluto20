@@ -1,4 +1,4 @@
-package de.hawlandshut.pluto20.web;
+package de.hawlandshut.pluto20;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,8 +17,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import de.hawlandshut.pluto20.R;
-
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "xx SignIn Activity";
 
@@ -36,8 +34,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_sign_in);
 
 
-        mEditTextEmail = (EditText) findViewById(R.id.signInEmail);
-        mEditTextPassword =(EditText) findViewById(R.id.signInPassword);
+        mEditTextEmail = (EditText) findViewById(R.id.sign_in_edittext_email);
+        mEditTextPassword =(EditText) findViewById(R.id.sign_in_edittext_password);
         mButtonSignIn = (Button) findViewById(R.id.sign_in_button_sign_in);
         mButtonResetPassword = (Button) findViewById(R.id.sign_in_button_reset_password);
         mButtonCreateAccount = (Button) findViewById(R.id.sign_in_button_create_account);
