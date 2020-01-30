@@ -1,7 +1,5 @@
 package de.hawlandshut.pluto20;
 
-import org.jetbrains.annotations.NotNull;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -64,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
         mAdapter = new ArrayAdapter<Post>(this,
                 android.R.layout.simple_list_item_2, android.R.id.text1, mPostList) {
 
-            @NotNull
+            @NonNull
+            @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
 
@@ -93,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ChildEventListener getChildEventListener() {
 
-        ChildEventListener cel = new ChildEventListener() {
+        return new ChildEventListener() {
 
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -134,7 +133,6 @@ public class MainActivity extends AppCompatActivity {
                 mListenerIsRunning = false;
             }
         };
-        return cel;
     }
 
     //Menu programming - inflate
@@ -147,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Create Menu-Events Listener
     @Override
-    public boolean onOptionsItemSelected(@NotNull MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent intent;
 
         switch (item.getItemId()) {

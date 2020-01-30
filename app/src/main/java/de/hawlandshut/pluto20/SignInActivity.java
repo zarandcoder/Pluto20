@@ -34,19 +34,19 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_sign_in);
 
 
-        mEditTextEmail = (EditText) findViewById(R.id.sign_in_edittext_email);
-        mEditTextPassword =(EditText) findViewById(R.id.sign_in_edittext_password);
-        mButtonSignIn = (Button) findViewById(R.id.sign_in_button_sign_in);
-        mButtonResetPassword = (Button) findViewById(R.id.sign_in_button_reset_password);
-        mButtonCreateAccount = (Button) findViewById(R.id.sign_in_button_create_account);
+        mEditTextEmail = findViewById(R.id.sign_in_edittext_email);
+        mEditTextPassword = findViewById(R.id.sign_in_edittext_password);
+        mButtonSignIn = findViewById(R.id.sign_in_button_sign_in);
+        mButtonResetPassword = findViewById(R.id.sign_in_button_reset_password);
+        mButtonCreateAccount = findViewById(R.id.sign_in_button_create_account);
 
         //Register Listener "this" = implementiert einen OnClickListener
         mButtonSignIn.setOnClickListener(this);
         mButtonCreateAccount.setOnClickListener(this);
         mButtonResetPassword.setOnClickListener(this);
 
-        mEditTextEmail.setText("vadim.zaripov@web.de");
-        mEditTextPassword.setText("ketchup&mayo");
+        mEditTextEmail.setText("vadim.zaripov1994@gmail.com");
+        mEditTextPassword.setText("");
     }
 
     @Override
@@ -55,16 +55,16 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         int i = v.getId();
         switch (i) {
 
-            case R.id.sign_in_button_create_account:
-                intent = new Intent(getApplication(), CreateAccountActivity.class);
-                startActivity(intent);
-                return;
-            case R.id.sign_in_button_sign_in:
-                doSignIn();
-                return;
-            case R.id.sign_in_button_reset_password:
-                doSendResetPasswordMail();
-                return;
+        case R.id.sign_in_button_create_account:
+            intent = new Intent(getApplication(), CreateAccountActivity.class);
+            startActivity(intent);
+            break;
+        case R.id.sign_in_button_sign_in:
+            doSignIn();
+            break;
+        case R.id.sign_in_button_reset_password:
+            doSendResetPasswordMail();
+            break;
         }
     }
 
@@ -87,6 +87,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 if(task.isSuccessful()) {
                     Toast.makeText(getApplicationContext(), "Signed in!",
                             Toast.LENGTH_LONG).show();
+                    finish();
                 } else {
                     Toast.makeText(getApplicationContext(),
                             "Signed in failed!(Check log messages)",

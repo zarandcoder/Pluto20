@@ -30,29 +30,23 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
 
-        mEditTextMail = (EditText) findViewById(R.id.create_account_edittext_email);
-        mEditTextPassword1 = (EditText) findViewById(R.id.create_account_edittext_password1);
-        mEditTextPassword2 = (EditText) findViewById(R.id.create_account_edittext_password2);
-        mButtonCreateAccount = (Button) findViewById(R.id.create_account_button_create);
+        mEditTextMail = findViewById(R.id.create_account_edittext_email);
+        mEditTextPassword1 = findViewById(R.id.create_account_edittext_password1);
+        mEditTextPassword2 = findViewById(R.id.create_account_edittext_password2);
+        mButtonCreateAccount = findViewById(R.id.create_account_button_create);
 
         //Register listener
         mButtonCreateAccount.setOnClickListener(this);
-
-        // TODO: Remove presets later
-        mEditTextMail.setText("vadim@zaripov.website");
-        mEditTextPassword1.setText("1qayxsw2");
-        mEditTextPassword2.setText("1qayxsw2");
-
     }
 
     @Override
     public void onClick(View v) {
         int i = v.getId();
         switch(i) {
-            case R.id.create_account_button_create:
-                Log.d(TAG, "Create Account Button pressed");
-                doCreateAccount();
-                return;
+        case R.id.create_account_button_create:
+            Log.d(TAG, "Create Account Button pressed");
+            doCreateAccount();
+            break;
         }
     }
 
